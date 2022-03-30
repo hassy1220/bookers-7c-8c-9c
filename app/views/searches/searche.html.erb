@@ -1,0 +1,33 @@
+<table class="table">
+<% if @model == 'Book' %>
+ <tr>
+   <td></td>
+   <td>Title</td>
+   <td>Opinion</td>
+ </tr>
+  <% @records.each do |record| %>
+  <tr>
+   <td><%= image_tag record.user.get_profile_image,size:'100x100' %></td>
+   <td>
+    <%= link_to book_path(record.id) do %>
+      <%= record.title %>
+    <% end %>
+   </td>
+   <td><%= record.body %></td>
+  </tr>
+  <% end %>
+<% elsif %>
+  <% @records.each do |record| %>
+  <tr>
+   <td><%= image_tag record.get_profile_image,size:'100x100' %></td>
+   <td>
+     <%= link_to user_path(record.id) do %>
+       <%= record.name %>
+     <% end %>
+   </td>
+   <td><%= record.introduction %></td>
+  </tr>
+  <% end %>
+<% end %>
+</table>
+

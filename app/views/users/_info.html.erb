@@ -1,0 +1,41 @@
+<table class='table'>
+  <tr><%= image_tag user.get_profile_image, size:'100x100' %></tr>
+  <tr>
+	  <th>name</th>
+	  <th><%= user.name %></th>
+  </tr>
+  <tr>
+	  <th>introduction</th>
+	  <th><%= user.introduction %></th>
+  </tr>
+  <tr>
+    <th></th>
+    <th>
+      <%= link_to user_relationships_follow_list_path(user.id) do %>
+        フォロー<%= user.followers.count %>件
+      <% end %>
+    </th>
+  </tr>
+  <tr>
+    <th></th>
+    <th>
+      <%= link_to user_relationships_follower_list_path(user.id) do %>
+        フォロワー<%= user.followeds.count %>件
+      <% end %>
+    </th>
+  </tr>
+</table>
+  <% unless current_user.id == user.id %>
+    <% if current_user.follower.exists?(followed_id: user.id) %>
+      <buton class="btn btn-success mb-4"><%= link_to"フォロー解除",user_relationship_path(user.id),method: :delete,class:"text-white" %></buton>
+    <% else %>
+      <buton class="btn btn-success mb-4"><%= link_to"フォロー",user_relationship_path(user.id),method: :post,class:"text-white" %></buton>
+    <% end %>
+  <% end %>
+
+
+<div class='row'>
+  <%= link_to edit_user_path(user), class: "btn btn-outline-secondary btn-block edit_user_#{user.id}" do %>
+    <i class="fas fa-user-cog"></i>
+  <% end %>
+</div>
