@@ -9,7 +9,17 @@
     <div class='col-md-8 offset-md-1'>
       <h2>Books</h2>
       <%= render 'books/index',books: @books %>
-      <h2>投稿数の前日比、前週比</h2>
+
+      <h3>検索</h3>
+      <%= form_with url: user_path(@user.id),method: :get,local: false do |f| %>
+        <%= f.date_field :created_at %>
+        <%= f.submit"検索" %>
+      <% end %>
+      <div id="time">
+        <%= render"searches/searchtime",sort: @sort %>
+      </div>
+
+      <h3>投稿数の前日比、前週比</h3>
       <table class="table">
         <tr>
           <td>今日の投稿数</td>
@@ -32,7 +42,8 @@
           <td><%= @week_ratio %></td>
         </tr>
       </table>
-      <h2>過去７日間の推移</h2>
+
+      <h3>過去７日間の推移</h3>
       <table class="table">
         <tr>
           <td>６日前</td>

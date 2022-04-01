@@ -27,6 +27,11 @@ class UsersController < ApplicationController
     else
       @week_ratio = @week.count.to_f / @week_second.count.to_f
     end
+    number = params[:created_at]
+
+    if number.present?
+      @sort = @user.books.where(created_at: number.in_time_zone.all_day)
+    end
   end
 
   def index

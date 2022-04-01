@@ -1,0 +1,12 @@
+ <% if sort.present? %>
+        <table class="table">
+          <tr>
+            <td><%= @sort.count %></td>
+            <td>
+              <% @sort.each do |sort| %>
+                <li><%= sort.title %></li>
+              <% end %>
+            </td>
+          </tr>
+        </table>
+  <% end %>
