@@ -4,6 +4,8 @@ class Book < ApplicationRecord
 
   belongs_to:user
   has_many:favorites,dependent: :destroy
+  has_many:like_user,through: :favorites,source: :user
+
   has_many:book_comments,dependent: :destroy
   # def get_profile_image
   #   (profile_image.attached?) ? profile_image : 'no_image.jpg'

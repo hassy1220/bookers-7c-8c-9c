@@ -9,6 +9,82 @@
     <div class='col-md-8 offset-md-1'>
       <h2>Books</h2>
       <%= render 'books/index',books: @books %>
+      <h2>投稿数の前日比、前週比</h2>
+      <table class="table">
+        <tr>
+          <td>今日の投稿数</td>
+          <td>前日の投稿数</td>
+          <td>前日比</td>
+        </tr>
+        <tr>
+          <td><%= @today_books.count %></td>
+          <td><%= @yesterday_books.count %></td>
+          <td><%= @ratio %>%</td>
+        </tr>
+        <tr>
+          <td>今週の投稿数</td>
+          <td>先週の投稿数</td>
+          <td>前週比</td>
+        </tr>
+        <tr>
+          <td><%= @week.count %></td>
+          <td><%= @week_second.count %></td>
+          <td><%= @week_ratio %></td>
+        </tr>
+      </table>
+      <h2>過去７日間の推移</h2>
+      <table class="table">
+        <tr>
+          <td>６日前</td>
+          <td>５日前</td>
+          <td>４日前</td>
+          <td>３日前</td>
+          <td>２日前</td>
+          <td>１日前</td>
+          <td>今日</td>
+        </tr>
+        <tr>
+          <td><%= @user.books.where(created_at: Time.zone.now.ago(6.day).all_day).count %></td>
+          <td><%= @user.books.where(created_at: Time.zone.now.ago(5.day).all_day).count %></td>
+          <td><%= @user.books.where(created_at: Time.zone.now.ago(4.day).all_day).count %></td>
+          <td><%= @user.books.where(created_at: Time.zone.now.ago(3.day).all_day).count %></td>
+          <td><%= @user.books.where(created_at: Time.zone.now.ago(2.day).all_day).count %></td>
+          <td><%= @user.books.where(created_at: Time.zone.now.ago(1.day).all_day).count %></td>
+          <td><%= @user.books.where(created_at: Time.zone.now.all_day).count %></td>
+        </tr>
+      </table>
+      <div>
+        <canvas id="mychart"></canvas>
+      </div>
+      <script>
+       var ctx = document.getElementById('mychart');
+       var myChart = new Chart(ctx, {
+         type: 'line',
+         data: {
+
+           labels: ['今日', '１日前', '２日前', '３日前', '４日前', '５日前', '６日前'],
+           datasets: [{
+             label: '投稿した本の数',
+             data: [<%= @user.books.where(created_at: Time.zone.now.all_day).count %>,
+                    <%= @user.books.where(created_at: Time.zone.now.ago(1.day).all_day).count %>,
+                    <%= @user.books.where(created_at: Time.zone.now.ago(2.day).all_day).count %>,
+                    <%= @user.books.where(created_at: Time.zone.now.ago(3.day).all_day).count %>,
+                    <%= @user.books.where(created_at: Time.zone.now.ago(4.day).all_day).count %>,
+                    <%= @user.books.where(created_at: Time.zone.now.ago(5.day).all_day).count %>,
+                    <%= @user.books.where(created_at: Time.zone.now.ago(6.day).all_day).count %>,
+            ],
+             borderColor: '#f88',
+           }],
+        　 },
+         options: {
+           y: {
+             min: 0,
+             max: 10,
+           },
+         },
+       });
+</script>
     </div>
+
   </div>
 </div>

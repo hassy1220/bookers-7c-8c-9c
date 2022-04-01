@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     get "relationships/follow_list"
     get "relationships/follower_list"
   end
+  resources :chats, only: [:show,:create]
   # get '/search'=>'searches#search',as:"search"
   # get '/search', to: 'searchs#search'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
