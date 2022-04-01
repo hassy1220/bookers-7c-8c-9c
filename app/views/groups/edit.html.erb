@@ -1,0 +1,10 @@
+<h1>Group Edit</h1>
+<%= form_with model: @group do |f| %>
+  <label>グループ名</label><br>
+  <%= f.text_field :name %><br>
+  <label>説明</label><br>
+  <%= f.text_area :introduction %><br>
+  <label>グループ画像</label><br>
+  <%= f.file_field :group_image,accept:"image/jpg" %><br>
+  <%= f.submit"保存" %>
+<% end %>

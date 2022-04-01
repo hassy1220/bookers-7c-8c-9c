@@ -13,7 +13,10 @@ class User < ApplicationRecord
 
   has_many:followers,through: :follower,source: :followed
   has_many:followeds,through: :followed,source: :follower
-  
+
+  has_many:group_users,dependent: :destroy
+  has_many:groups,through: :group_users
+
   has_many:user_rooms,dependent: :destroy
   has_many:chats,dependent: :destroy
 
