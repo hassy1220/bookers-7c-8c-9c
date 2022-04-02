@@ -12,6 +12,7 @@ class GroupsController < ApplicationController
       @user_room.group_id = group.id
       @user_room.save
       redirect_to groups_path
+  
     else
       group = Group.new(group_params)
       group.owner_id = current_user.id
